@@ -87,7 +87,6 @@ $wa->usePreset('template.cassiopeia.' . ($this->direction === 'rtl' ? 'rtl' : 'l
 
 // Override 'template.active' asset to set correct ltr/rtl dependency
 $wa->registerStyle('template.active', '', [], [], ['template.cassiopeia.' . ($this->direction === 'rtl' ? 'rtl' : 'ltr')]);
-
 // Logo file or site title param
 if ($this->params->get('logoFile'))
 {
@@ -156,31 +155,51 @@ $wa->getAsset('style', 'fontawesome')->setAttribute('rel', 'lazy-stylesheet');
 			</div>
 		<?php endif; ?>
 
-		<?php if ($this->params->get('brand', 1)) : ?>
-			<div class="grid-child">
-				<div class="navbar-brand">
-					<a class="brand-logo" href="<?php echo $this->baseurl; ?>/">
-						<?php echo $logo; ?>
-					</a>
-					<?php if ($this->params->get('siteDescription')) : ?>
-						<div class="site-description"><?php echo htmlspecialchars($this->params->get('siteDescription')); ?></div>
-					<?php endif; ?>
-				</div>
-			</div>
-		<?php endif; ?>
-
-		<?php if ($this->countModules('menu', true) || $this->countModules('search', true)) : ?>
-			<div class="grid-child container-nav">
-				<?php if ($this->countModules('menu', true)) : ?>
-					<jdoc:include type="modules" name="menu" style="none" />
-				<?php endif; ?>
-				<?php if ($this->countModules('search', true)) : ?>
-					<div class="container-search">
-						<jdoc:include type="modules" name="search" style="none" />
+		<div class="real-header">
+			<div class="head-wrapper">
+				<div class="aside logo">
+						<?php if ($this->params->get('brand', 1)) : ?>
+							<div class="grid-child">
+								<div class="navbar-brand">
+									<a class="brand-logo" href="<?php echo $this->baseurl; ?>/">
+										<?php echo $logo; ?>
+									</a>
+									<?php if ($this->params->get('siteDescription')) : ?>
+										<div class="site-description"><?php echo htmlspecialchars($this->params->get('siteDescription')); ?></div>
+									<?php endif; ?>
+								</div>
+							</div>
+						<?php endif; ?>
 					</div>
-				<?php endif; ?>
-			</div>
-		<?php endif; ?>
+
+					<div class="aside subhead-wrapper">
+
+						<?php if ($this->countModules('menu', true)) : ?>
+							<div class="grid-child container-nav menu-nav">
+								<jdoc:include type="modules" name="menu" style="none" />
+							</div>
+						<?php endif; ?>
+
+						<div class="above-menu-wrapper">
+							<?php if ($this->countModules('search', true)) : ?>
+								<div class="container-search search">
+									<jdoc:include type="modules" name="search" style="none" />
+								</div>
+							<?php endif; ?>
+								
+							<?php if ($this->countModules('language', true)) : ?>
+								<div class="language">
+									<jdoc:include type="modules" name="language" style="none" />
+								</div>
+							<?php endif; ?>
+						</div>
+
+					</div>
+
+			<div>
+		</div>
+	
+
 	</header>
 
 	<div class="site-grid">
